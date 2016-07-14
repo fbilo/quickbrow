@@ -66,6 +66,12 @@
     <Compile Include="ExploreTablesInDB.Designer.cs">
       <DependentUpon>ExploreTablesInDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="myTabs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="myTabs.Designer.cs">
+      <DependentUpon>myTabs.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     </Compile>
     <EmbeddedResource Include="ExploreTablesInDB.resx">
       <DependentUpon>ExploreTablesInDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="myTabs.resx">
+      <DependentUpon>myTabs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectForm.resx">
       <DependentUpon>SelectForm.cs</DependentUpon>

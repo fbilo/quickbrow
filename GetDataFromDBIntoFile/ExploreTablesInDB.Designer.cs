@@ -43,8 +43,8 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.button4 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.connectionsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sampleConnectionDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sampleConnectionDataSet)).BeginInit();
@@ -134,7 +134,7 @@
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Location = new System.Drawing.Point(609, 564);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(98, 26);
+            this.button2.Size = new System.Drawing.Size(175, 26);
             this.button2.TabIndex = 6;
             this.button2.Text = "Close Application";
             this.button2.UseVisualStyleBackColor = true;
@@ -199,6 +199,15 @@
             this.splitContainer1.SplitterDistance = 290;
             this.splitContainer1.TabIndex = 10;
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(236, 9);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(24, 22);
+            this.btnEdit.TabIndex = 7;
+            this.btnEdit.Text = "...";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            // 
             // btnAdd
             // 
             this.btnAdd.Location = new System.Drawing.Point(208, 9);
@@ -208,15 +217,6 @@
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Location = new System.Drawing.Point(236, 9);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(24, 22);
-            this.btnEdit.TabIndex = 7;
-            this.btnEdit.Text = "...";
-            this.btnEdit.UseVisualStyleBackColor = true;
             // 
             // ExploreTablesInDB
             // 
