@@ -49,6 +49,8 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(30, 53);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -58,6 +60,7 @@
             // 
             // cmdExecute
             // 
+            this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdExecute.Location = new System.Drawing.Point(533, 53);
             this.cmdExecute.Name = "cmdExecute";
             this.cmdExecute.Size = new System.Drawing.Size(75, 23);
@@ -67,6 +70,7 @@
             // 
             // cmdStru
             // 
+            this.cmdStru.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdStru.Location = new System.Drawing.Point(533, 91);
             this.cmdStru.Name = "cmdStru";
             this.cmdStru.Size = new System.Drawing.Size(75, 23);
@@ -76,15 +80,20 @@
             // 
             // cmdExit
             // 
+            this.cmdExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdExit.Location = new System.Drawing.Point(533, 177);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(75, 23);
             this.cmdExit.TabIndex = 4;
             this.cmdExit.Text = "Cl&ose";
             this.cmdExit.UseVisualStyleBackColor = true;
+            this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(30, 230);
             this.dataGridView1.Name = "dataGridView1";

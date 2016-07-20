@@ -35,25 +35,23 @@
             this.sampleConnectionDataSet = new GetDataFromDBIntoFile.SampleConnectionDataSet();
             this.connectionsTableAdapter = new GetDataFromDBIntoFile.SampleConnectionDataSetTableAdapters.ConnectionsTableAdapter();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.button4 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.connectionsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sampleConnectionDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sampleConnectionDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -96,32 +94,21 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "DB Name";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 47);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(258, 509);
-            this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
-            // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Location = new System.Drawing.Point(15, 15);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(769, 100);
+            this.tabControl1.Size = new System.Drawing.Size(769, 546);
             this.tabControl1.TabIndex = 4;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(125, 564);
+            this.button1.Location = new System.Drawing.Point(125, 569);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(145, 26);
             this.button1.TabIndex = 5;
@@ -132,9 +119,9 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(609, 564);
+            this.button2.Location = new System.Drawing.Point(633, 569);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(175, 26);
+            this.button2.Size = new System.Drawing.Size(151, 26);
             this.button2.TabIndex = 6;
             this.button2.Text = "Close Application";
             this.button2.UseVisualStyleBackColor = true;
@@ -142,7 +129,8 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(414, 133);
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Location = new System.Drawing.Point(339, 568);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(130, 27);
             this.button3.TabIndex = 7;
@@ -150,20 +138,10 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // dataGridView2
-            // 
-            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(15, 183);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(769, 373);
-            this.dataGridView2.TabIndex = 8;
-            // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(573, 133);
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(475, 569);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(128, 26);
             this.button4.TabIndex = 9;
@@ -173,31 +151,47 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(0, 5);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.dataGridView1);
             this.splitContainer1.Panel1.Controls.Add(this.btnEdit);
             this.splitContainer1.Panel1.Controls.Add(this.btnAdd);
-            this.splitContainer1.Panel1.Controls.Add(this.dataGridView1);
             this.splitContainer1.Panel1.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridView2);
             this.splitContainer1.Panel2.Controls.Add(this.button4);
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Panel2.Controls.Add(this.button3);
-            this.splitContainer1.Size = new System.Drawing.Size(1091, 600);
-            this.splitContainer1.SplitterDistance = 290;
+            this.splitContainer1.Size = new System.Drawing.Size(1090, 605);
+            this.splitContainer1.SplitterDistance = 289;
             this.splitContainer1.TabIndex = 10;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(11, 37);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(259, 524);
+            this.dataGridView1.TabIndex = 8;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
+            this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
             // btnEdit
             // 
@@ -230,13 +224,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.connectionsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sampleConnectionDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sampleConnectionDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -249,15 +242,14 @@
         private System.Windows.Forms.BindingSource connectionsBindingSource;
         private SampleConnectionDataSetTableAdapters.ConnectionsTableAdapter connectionsTableAdapter;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

@@ -11,6 +11,9 @@ using System.Data.SqlClient;
 
 namespace GetDataFromDBIntoFile
 {
+
+    public delegate void RequestToReleaseTab(myTabs oTab);
+
     public partial class myTabs : UserControl
     {
         public string Tablename {
@@ -29,7 +32,12 @@ namespace GetDataFromDBIntoFile
         private string table;
         private string selectcmd;
         private SqlConnection oConn;
+        private SqlDataAdapter oSda = new SqlDataAdapter();
+        private DataTable oDT = new DataTable();
 
+
+        public event RequestToReleaseTab ReleaseMe;
+        
 
         public myTabs(string ctable, string cSelect, SqlConnection Conn)
         {
@@ -47,6 +55,12 @@ namespace GetDataFromDBIntoFile
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             this.selectcmd = textBox1.Text;
+        }
+
+        private void cmdExit_Click(object sender, EventArgs e)
+        {
+            ReleaseMe(this);
+
         }
     }
 }
