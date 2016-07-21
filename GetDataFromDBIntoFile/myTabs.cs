@@ -31,7 +31,7 @@ namespace GetDataFromDBIntoFile
 
         private string table;
         private string selectcmd;
-        private SqlConnection oConn;
+        private string connstring;
         private SqlDataAdapter oSda = new SqlDataAdapter();
         private DataTable oDT = new DataTable();
 
@@ -39,12 +39,12 @@ namespace GetDataFromDBIntoFile
         public event RequestToReleaseTab ReleaseMe;
         
 
-        public myTabs(string ctable, string cSelect, SqlConnection Conn)
+        public myTabs(string ctable, string cSelect, string Conn)
         {
             InitializeComponent();
             this.selectcmd = cSelect;
             this.table = ctable;
-            this.oConn = Conn;
+            this.connstring = Conn;
         }
 
         private void myTabs_Load(object sender, EventArgs e)
@@ -61,6 +61,13 @@ namespace GetDataFromDBIntoFile
         {
             ReleaseMe(this);
 
+        }
+
+        private void cmdExecute_Click(object sender, EventArgs e)
+        {
+            QueryData qd = new QueryData(this.connstring, this.selectcmd);
+            DataTable dt = qd.ExecuteDataSet();
+            this.dataGridView1.DataSource = dt;
         }
     }
 }

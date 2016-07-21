@@ -67,6 +67,7 @@
             this.cmdExecute.TabIndex = 2;
             this.cmdExecute.Text = "E&xecute";
             this.cmdExecute.UseVisualStyleBackColor = true;
+            this.cmdExecute.Click += new System.EventHandler(this.cmdExecute_Click);
             // 
             // cmdStru
             // 

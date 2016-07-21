@@ -108,10 +108,12 @@ namespace GetDataFromDBIntoFile
 
         private void button4_Click(object sender, EventArgs e)
         {
-            foreach (Control c in tabControl1.Controls)
-            {
-                this.tabControl1.Controls.Remove(c);
-            }
+            tabControl1.Controls.Clear();
+
+            //foreach (Control c in tabControl1.Controls)
+            //{
+            //    this.tabControl1.Controls.Remove(c);
+            //}
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -199,10 +201,6 @@ namespace GetDataFromDBIntoFile
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
@@ -223,7 +221,7 @@ namespace GetDataFromDBIntoFile
             //tb.Text = strCommand;
             //tb.Size = new System.Drawing.Size(1000, 400);
 
-            myTabs oTab = new myTabs(strTable, strCommand, new SqlConnection(comboBox1.SelectedValue.ToString().Trim()));
+            myTabs oTab = new myTabs(strTable, strCommand, comboBox1.SelectedValue.ToString().Trim());
 
             tp.Controls.Add(oTab);
             tp.Text = strTable;
@@ -233,11 +231,16 @@ namespace GetDataFromDBIntoFile
             //tabControl1.Dock = DockStyle.Fill;
             tp.Size = new System.Drawing.Size(tabControl1.Width - 5, tabControl1.Height - 5);
             oTab.Dock = DockStyle.Fill;
+
+            oTab.ReleaseMe +=  closetab;
             
         }
 
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        public void closetab(myTabs oTab)
         {
+            TabPage oPage = (TabPage)oTab.Parent;
+
+            tabControl1.Controls.Remove(oPage);
 
         }
     }
