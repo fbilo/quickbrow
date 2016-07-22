@@ -13,9 +13,6 @@ using Microsoft.Data.ConnectionUI;
 using Microsoft.VisualBasic;
 
 
-
-
-
 namespace GetDataFromDBIntoFile
 {
     public partial class ExploreTablesInDB : Form
@@ -38,20 +35,36 @@ namespace GetDataFromDBIntoFile
             // TODO: This line of code loads data into the 'sampleConnectionDataSet.Connections' table. You can move, or remove it, as needed.
             //this.connectionsTableAdapter.Fill(this.sampleConnectionDataSet.Connections);
 
+            this.LoadDataFromLocalDB();
+        }
+
+        private void LoadDataFromLocalDB()
+        {
             try
             {
-                SQLiteConnection oSqliteConn = new SQLiteConnection(Properties.Settings.Default.sqliteconn);
-                SQLiteCommand oSqliteComm = new SQLiteCommand("Select name, connection from connections", oSqliteConn);
-                SQLiteDataAdapter oSqliteAdapter = new SQLiteDataAdapter(oSqliteComm);
-                oSqliteAdapter.Fill(this.sampleConnectionDataSet.Connections);
+                using (SQLiteConnection oSqliteConn = new SQLiteConnection(Properties.Settings.Default.sqliteconn))
+                {
+                    SQLiteCommand oSqliteComm = new SQLiteCommand("Select name, connection from connections", oSqliteConn);
+                    SQLiteDataAdapter oSqliteAdapter = new SQLiteDataAdapter(oSqliteComm);
+                    oSqliteAdapter.Fill(this.sampleConnectionDataSet.Connections);
+                }
+
             }
-            catch (Exception )
+            catch (Exception ex)
             {
-                throw;
-
+                MessageBox.Show(ex.Message, "falied load local Database!");
             }
+        }
+
+        private void SetupDataGridView(DataTable oData)
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
 
 
+            dataGridView1.DataSource = oData;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,21 +78,13 @@ namespace GetDataFromDBIntoFile
                 QueryData qd = new QueryData(strConnection, strCommand);
                 DataTable dt = qd.ExecuteDataSet();
 
-                dataGridView1.Rows.Clear();
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-
-
-                dataGridView1.DataSource = dt;
+                SetupDataGridView(dt);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message, "failed to Connect to the Data Source!");
             }
 
-           
         }
 
 
@@ -96,73 +101,15 @@ namespace GetDataFromDBIntoFile
             Process.GetCurrentProcess().Kill();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            this.strConnection = comboBox1.SelectedValue.ToString().Trim();
-
-            strCommand = this.tabControl1.SelectedTab.Controls[0].Text.ToString();
-            QueryData qd = new QueryData(strConnection, strCommand);
-            DataTable dt = qd.ExecuteDataSet();
-            //this.dataGridView2.DataSource = dt;
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             tabControl1.Controls.Clear();
 
-            //foreach (Control c in tabControl1.Controls)
-            //{
-            //    this.tabControl1.Controls.Remove(c);
-            //}
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            DataConnectionDialog odialog = new DataConnectionDialog();
-            odialog.DataSources.Add(DataSource.SqlDataSource);
-            odialog.SelectedDataProvider = DataProvider.SqlDataProvider;
-
-            if (DataConnectionDialog.Show(odialog, this) == DialogResult.OK)
-            {
-                string cString = odialog.ConnectionString;
-                SqlConnectionStringBuilder oBuilder = new SqlConnectionStringBuilder(cString);
-
-                string cDataSource = oBuilder.DataSource;
-                string cDBName = oBuilder.InitialCatalog;
-
-                string cName = cDataSource.Replace(' ', '_') + '_' + cDBName.Replace(' ', '_');
-
-                string cResult = Microsoft.VisualBasic.Interaction.InputBox("Enter a name to save the connectionstring", "Save", cName, 0, 0);
-
-
-                if (string.Empty != cResult)
-                {
-                    try
-                    {
-                        using (SQLiteConnection oSqliteConn = new SQLiteConnection(Properties.Settings.Default.sqliteconn))
-                        {
-                            SQLiteCommand oSqliteComm = new SQLiteCommand(
-                                string.Format("insert into connections (name, connection) values('{0}', '{1}')", cResult, cString),
-                                oSqliteConn);
-                            oSqliteConn.Open();
-                            oSqliteComm.ExecuteNonQuery();
-
-                            this.sampleConnectionDataSet.Clear();
-
-                            oSqliteComm.CommandText = "Select name, connection from connections";
-                            SQLiteDataAdapter oSqliteAdapter = new SQLiteDataAdapter(oSqliteComm);
-                            oSqliteAdapter.Fill(this.sampleConnectionDataSet.Connections);
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-
-                    }
-                }
-
-            }
-
+            UpdateSource(0);
         }
 
         private void UpdateSource(int ntype)
@@ -174,33 +121,92 @@ namespace GetDataFromDBIntoFile
             odialog.DataSources.Add(DataSource.SqlDataSource);
             odialog.SelectedDataProvider = DataProvider.SqlDataProvider;
 
-            switch (ntype)
-            {
-                case 0: //add
-                    cCommand = "insert into connections (name, connection) values('{0}', '{1}')";
-                    break;
-                case 1: //update
-                    cCommand = "Update connections set name = '{0}, connection = '{1}' where name = '{2}'";
-                    odialog.ConnectionString = comboBox1.SelectedValue.ToString().Trim();
-                    break;
-                default:
-                    return;
-            }
+            if (ntype == 1)
+                odialog.ConnectionString = comboBox1.SelectedValue.ToString().Trim();
 
             if (DataConnectionDialog.Show(odialog, this) == DialogResult.OK)
             {
-                // Save data
+                string cString = odialog.ConnectionString;
+                SqlConnectionStringBuilder oBuilder = new SqlConnectionStringBuilder(cString);
 
+                string cDataSource = oBuilder.DataSource;
+                string cDBName = oBuilder.InitialCatalog;
+                string cName;
+
+                // get connection string
+                switch (ntype)
+                {
+                    case 0: //add
+                        cName = cDataSource.Replace(' ', '_') + '_' + cDBName.Replace(' ', '_');
+                        string cResult = Microsoft.VisualBasic.Interaction.InputBox("Enter a name to save the connectionstring", "Save", cName, 0, 0);
+
+                        if (string.Empty != cResult)
+                        {
+                            cCommand = string.Format("insert into connections (name, connection) values('{0}', '{1}')",
+                                cResult,
+                                cString);
+                        }
+                        else return;
+                        break;
+                    case 1: //update
+                        cName = comboBox1.SelectedText;
+                        cCommand = string.Format("Update connections set connection = '{1}' where name = '{0}'", cName, cString);
+                        break;
+                    default:
+                        return;
+                }
+
+                // Save data
+                try
+                {
+                    using (SQLiteConnection oSqliteConn = new SQLiteConnection(Properties.Settings.Default.sqliteconn))
+                    {
+                        SQLiteCommand oSqliteComm = new SQLiteCommand(cCommand, oSqliteConn);
+                        oSqliteConn.Open();
+                        oSqliteComm.ExecuteNonQuery();
+
+                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "failed in upgrade to the local database conn.db!");
+
+                }
 
                 // update UI
+                try
+                {
+                    CleanUpUI();
+                    this.sampleConnectionDataSet.Clear();
+                    LoadDataFromLocalDB();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
             }
+            else return;
+
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void CleanUpUI()
         {
+            //Combobox
+            comboBox1.DataSource = "";
+            comboBox1.Items.Clear();
 
+            //DataGridView
+            dataGridView1.DataSource = "";
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
         }
 
+        private void ResetUI()
+        {
+            comboBox1.DataSource = connectionsBindingSource;
+        }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
@@ -239,9 +245,13 @@ namespace GetDataFromDBIntoFile
         public void closetab(myTabs oTab)
         {
             TabPage oPage = (TabPage)oTab.Parent;
-
             tabControl1.Controls.Remove(oPage);
 
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            UpdateSource(1);
         }
     }
 }

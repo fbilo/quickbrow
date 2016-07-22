@@ -58,9 +58,9 @@
             this.comboBox1.DataSource = this.connectionsBindingSource;
             this.comboBox1.DisplayMember = "Name";
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(62, 11);
+            this.comboBox1.Location = new System.Drawing.Point(62, 12);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(140, 20);
+            this.comboBox1.Size = new System.Drawing.Size(140, 21);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.ValueMember = "Connection";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -87,9 +87,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 14);
+            this.label1.Location = new System.Drawing.Point(9, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "DB Name";
             // 
@@ -98,18 +98,18 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Location = new System.Drawing.Point(15, 15);
+            this.tabControl1.Location = new System.Drawing.Point(15, 16);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(769, 546);
+            this.tabControl1.Size = new System.Drawing.Size(769, 592);
             this.tabControl1.TabIndex = 4;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(125, 569);
+            this.button1.Location = new System.Drawing.Point(125, 616);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(145, 26);
+            this.button1.Size = new System.Drawing.Size(145, 28);
             this.button1.TabIndex = 5;
             this.button1.Text = "Back To Main Window";
             this.button1.UseVisualStyleBackColor = true;
@@ -118,9 +118,9 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(633, 569);
+            this.button2.Location = new System.Drawing.Point(633, 616);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(151, 26);
+            this.button2.Size = new System.Drawing.Size(151, 28);
             this.button2.TabIndex = 6;
             this.button2.Text = "Close Application";
             this.button2.UseVisualStyleBackColor = true;
@@ -129,9 +129,9 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(475, 569);
+            this.button4.Location = new System.Drawing.Point(475, 616);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(128, 26);
+            this.button4.Size = new System.Drawing.Size(128, 28);
             this.button4.TabIndex = 9;
             this.button4.Text = "Clear Tabs";
             this.button4.UseVisualStyleBackColor = true;
@@ -157,7 +157,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.button4);
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.button2);
-            this.splitContainer1.Size = new System.Drawing.Size(1090, 605);
+            this.splitContainer1.Size = new System.Drawing.Size(1090, 655);
             this.splitContainer1.SplitterDistance = 289;
             this.splitContainer1.TabIndex = 10;
             // 
@@ -170,29 +170,30 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(11, 37);
+            this.dataGridView1.Location = new System.Drawing.Point(11, 40);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(259, 524);
+            this.dataGridView1.Size = new System.Drawing.Size(259, 568);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(236, 9);
+            this.btnEdit.Location = new System.Drawing.Point(236, 10);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(24, 22);
+            this.btnEdit.Size = new System.Drawing.Size(24, 24);
             this.btnEdit.TabIndex = 7;
             this.btnEdit.Text = "...";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(208, 9);
+            this.btnAdd.Location = new System.Drawing.Point(208, 10);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(22, 22);
+            this.btnAdd.Size = new System.Drawing.Size(22, 24);
             this.btnAdd.TabIndex = 6;
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -200,9 +201,9 @@
             // 
             // ExploreTablesInDB
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1090, 605);
+            this.ClientSize = new System.Drawing.Size(1090, 655);
             this.Controls.Add(this.splitContainer1);
             this.Name = "ExploreTablesInDB";
             this.Text = "ExploreTablesInDB";
