@@ -20,14 +20,38 @@ namespace GetDataFromDBIntoFile
         private string strConnection = "";
         private string strTable = "";
         private string strCommand = "";
+        private string strschema = "";
+        private static string unSupportTypes = "'blob', 'binary', 'varbinary', 'geography', 'text', 'ntext', 'image'";
 
-        private static string strExploreTables = "SELECT s.Name as SchemaName,t.Name as TableName FROM SYS.TABLES t JOIN sys.Schemas s on t.Schema_id = s.Schema_ID WHERE T.TYPE = 'U' AND T.Name LIKE '[A-Z]%'";
-        private static string strSelectTop100 = "SELECT TOP 100 * FROM ";
+        private static string strExploreTables = @"SELECT s.Name as SchemaName,t.Name as TableName 
+FROM SYS.TABLES t
+JOIN sys.Schemas s
+    on t.Schema_id = s.Schema_ID
+WHERE T.TYPE = 'U' AND T.Name LIKE '[A-Z]%'
+UNION ALL
+select s.name as SchemaName, views.name as TableName
+from sys.views
+inner join sys.schemas s
+    on Views.schema_id = s.schema_id";
+
+        private static string strGetTableFields =
+            @"SELECT '[' + LTRIM(RTRIM(Column_name)) + '],' FROM INFORMATION_SCHEMA.COLUMNS 
+            WHERE TABLE_NAME = '{0}' AND TABLE_SCHEMA = '{1}' AND DATA_TYPE NOT IN ({2}) FOR XML PATH('') ";
+               //"SELECT Name + ',' FROM sys.columns where Object_ID = Object_ID('{0}') FOR XML Path('')";
+
+        private static string strSelectTop100 = "SELECT TOP 100 {0} FROM {1}";
         private static string strNOLOCK = " WITH (NOLOCK)";
+
+        private bool inReloadMode = false;
 
         public ExploreTablesInDB()
         {
             InitializeComponent();
+
+            //dataGridView1.Rows.Clear();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
         }
 
         private void ExploreTablesInDB_Load(object sender, EventArgs e)
@@ -36,6 +60,8 @@ namespace GetDataFromDBIntoFile
             //this.connectionsTableAdapter.Fill(this.sampleConnectionDataSet.Connections);
 
             this.LoadDataFromLocalDB();
+            comboBox1.SelectedIndex = 0;
+            comboBox1.Text = "";
         }
 
         private void LoadDataFromLocalDB()
@@ -58,23 +84,25 @@ namespace GetDataFromDBIntoFile
 
         private void SetupDataGridView(DataTable oData)
         {
-            dataGridView1.Rows.Clear();
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-
-
+            dataGridView1.DataSource = "";
             dataGridView1.DataSource = oData;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.Items.Count == 0) return;
+            if (comboBox1.Items.Count == 0 || comboBox1.Text == string.Empty || inReloadMode == true)
+                return;
+
+            msgwindow oMsg;
+            oMsg = new msgwindow("Database operating", "program is retriving table/views for the connection...");
 
             try
             {
                 this.strConnection = comboBox1.SelectedValue.ToString().Trim();
                 this.strCommand = strExploreTables;
+
+                oMsg.Show();
+
                 QueryData qd = new QueryData(strConnection, strCommand);
                 DataTable dt = qd.ExecuteDataSet();
 
@@ -82,7 +110,12 @@ namespace GetDataFromDBIntoFile
             }
             catch (Exception ex)
             {
+                if (oMsg != null) oMsg.Close();
                 MessageBox.Show(ex.Message, "failed to Connect to the Data Source!");
+            }
+            finally
+            {
+                if (oMsg != null) oMsg.Close();
             }
 
         }
@@ -121,7 +154,7 @@ namespace GetDataFromDBIntoFile
             odialog.DataSources.Add(DataSource.SqlDataSource);
             odialog.SelectedDataProvider = DataProvider.SqlDataProvider;
 
-            if (ntype == 1)
+            if (ntype == 1 && comboBox1.SelectedValue.ToString().Trim().IndexOf("Data Source=")>=0)
                 odialog.ConnectionString = comboBox1.SelectedValue.ToString().Trim();
 
             if (DataConnectionDialog.Show(odialog, this) == DialogResult.OK)
@@ -149,12 +182,14 @@ namespace GetDataFromDBIntoFile
                         else return;
                         break;
                     case 1: //update
-                        cName = comboBox1.SelectedText;
-                        cCommand = string.Format("Update connections set connection = '{1}' where name = '{0}'", cName, cString);
+                        cName = comboBox1.Text.Trim();
+                        cCommand = string.Format("Update connections set connection = '{0}' where name = '{1}'", cString,cName);
                         break;
                     default:
                         return;
                 }
+
+                bool lSucc = true;
 
                 // Save data
                 try
@@ -170,15 +205,26 @@ namespace GetDataFromDBIntoFile
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "failed in upgrade to the local database conn.db!");
-
+                    lSucc = false;
                 }
+
+                if (!lSucc) return;
 
                 // update UI
                 try
                 {
-                    CleanUpUI();
-                    this.sampleConnectionDataSet.Clear();
+                    //CleanUpUI();
+
+                    //sampleConnectionDataSet.Clear();
+
+                    // set this flag to avoid combobox's interactivechange event happen
+                    inReloadMode = true;
+
+                    sampleConnectionDataSet.Connections.Rows.Clear();
+
                     LoadDataFromLocalDB();
+                    inReloadMode = false;
+
                 }
                 catch (Exception)
                 {
@@ -194,8 +240,8 @@ namespace GetDataFromDBIntoFile
         private void CleanUpUI()
         {
             //Combobox
-            comboBox1.DataSource = "";
-            comboBox1.Items.Clear();
+            //comboBox1.DataSource = "";
+            //comboBox1.Items.Clear();
 
             //DataGridView
             dataGridView1.DataSource = "";
@@ -203,9 +249,35 @@ namespace GetDataFromDBIntoFile
             dataGridView1.Columns.Clear();
         }
 
-        private void ResetUI()
+        //private void ResetUI()
+        //{
+        //    comboBox1.DataSource = connectionsBindingSource;
+        //}
+
+        
+        private string GetTableFields(string tablename, string schema)
         {
-            comboBox1.DataSource = connectionsBindingSource;
+            string cResult = string.Empty;
+            string cSql = string.Format(strGetTableFields, tablename, schema, unSupportTypes);
+            string cConn = comboBox1.SelectedValue.ToString().Trim();
+
+            try
+            {
+                using (SqlConnection oConn = new SqlConnection(cConn))
+                {
+                    oConn.Open();
+                    SqlCommand oComm = new SqlCommand(cSql, oConn);
+                    cResult = (string)oComm.ExecuteScalar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "failed get table columns...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+
+            return cResult;
+
         }
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
@@ -213,20 +285,17 @@ namespace GetDataFromDBIntoFile
             if (dataGridView1.SelectedRows.Count == 0)
                 return;
 
+            string cColumns;
             strTable = (dataGridView1.SelectedRows[0]).Cells[1].Value.ToString();
-            strCommand = strSelectTop100 + strTable + strNOLOCK;
+            strschema = (dataGridView1.SelectedRows[0]).Cells[0].Value.ToString() == string.Empty
+                ?"dbo": (dataGridView1.SelectedRows[0]).Cells[0].Value.ToString();
+            cColumns = GetTableFields(strTable, strschema);
+            cColumns = cColumns == string.Empty ? "*" : cColumns.Remove(cColumns.Length - 1);
+            
+            strCommand = string.Format(strSelectTop100, cColumns, strschema + "." +  strTable) + strNOLOCK;
 
             TabPage tp = new TabPage();
-            //TextBox tb = new TextBox();
-
-            //tp.Text = strTable;
-            //tp.Size = new System.Drawing.Size(1000, 400);
-            //tp.TabIndex = 1;
-            //tp.Controls.Add(tb);
-
-            //tb.Text = strCommand;
-            //tb.Size = new System.Drawing.Size(1000, 400);
-
+ 
             myTabs oTab = new myTabs(strTable, strCommand, comboBox1.SelectedValue.ToString().Trim());
 
             tp.Controls.Add(oTab);
@@ -234,7 +303,7 @@ namespace GetDataFromDBIntoFile
 
             tabControl1.Controls.Add(tp);
             tabControl1.SelectTab(tabControl1.TabCount - 1);
-            //tabControl1.Dock = DockStyle.Fill;
+ 
             tp.Size = new System.Drawing.Size(tabControl1.Width - 5, tabControl1.Height - 5);
             oTab.Dock = DockStyle.Fill;
 
@@ -252,6 +321,11 @@ namespace GetDataFromDBIntoFile
         private void btnEdit_Click(object sender, EventArgs e)
         {
             UpdateSource(1);
+        }
+
+        private void ExploreTablesInDB_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
         }
     }
 }
