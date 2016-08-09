@@ -60,8 +60,7 @@ inner join sys.schemas s
             //this.connectionsTableAdapter.Fill(this.sampleConnectionDataSet.Connections);
 
             this.LoadDataFromLocalDB();
-            comboBox1.SelectedIndex = 0;
-            comboBox1.Text = "";
+            resetCombobox();
         }
 
         private void LoadDataFromLocalDB()
@@ -100,8 +99,9 @@ inner join sys.schemas s
             {
                 this.strConnection = comboBox1.SelectedValue.ToString().Trim();
                 this.strCommand = strExploreTables;
-
+               
                 oMsg.Show();
+                oMsg.Refresh();
 
                 QueryData qd = new QueryData(strConnection, strCommand);
                 DataTable dt = qd.ExecuteDataSet();
@@ -214,7 +214,6 @@ inner join sys.schemas s
                 try
                 {
                     //CleanUpUI();
-
                     //sampleConnectionDataSet.Clear();
 
                     // set this flag to avoid combobox's interactivechange event happen
@@ -225,16 +224,22 @@ inner join sys.schemas s
                     LoadDataFromLocalDB();
                     inReloadMode = false;
 
+                    resetCombobox();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    MessageBox.Show(ex.Message, "failed in reload data or refresh UI"); ;
                 }
 
             }
             else return;
 
+        }
+
+        private void resetCombobox()
+        {
+            comboBox1.SelectedIndex = 0;
+            comboBox1.Text = "";
         }
 
         private void CleanUpUI()
@@ -248,12 +253,6 @@ inner join sys.schemas s
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
         }
-
-        //private void ResetUI()
-        //{
-        //    comboBox1.DataSource = connectionsBindingSource;
-        //}
-
         
         private string GetTableFields(string tablename, string schema)
         {
@@ -267,7 +266,13 @@ inner join sys.schemas s
                 {
                     oConn.Open();
                     SqlCommand oComm = new SqlCommand(cSql, oConn);
-                    cResult = (string)oComm.ExecuteScalar();
+
+                    // if result string longer than 2033 characters, the XML result will be return as multiply lines
+                    //cResult = (string)oComm.ExecuteScalar();
+                    System.Xml.XmlReader reader = oComm.ExecuteXmlReader();
+                    reader.MoveToContent();
+                    //cResult = reader.ReadOuterXml();
+                    cResult = reader.Value;
                 }
             }
             catch (Exception ex)

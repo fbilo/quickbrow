@@ -42,8 +42,8 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(32, 27);
+            this.label1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(32, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(103, 12);
             this.label1.TabIndex = 0;
@@ -53,19 +53,20 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(30, 46);
+            this.textBox1.Location = new System.Drawing.Point(30, 50);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(474, 147);
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(474, 159);
             this.textBox1.TabIndex = 1;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // cmdExecute
             // 
             this.cmdExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdExecute.Location = new System.Drawing.Point(533, 53);
+            this.cmdExecute.Location = new System.Drawing.Point(533, 57);
             this.cmdExecute.Name = "cmdExecute";
-            this.cmdExecute.Size = new System.Drawing.Size(75, 23);
+            this.cmdExecute.Size = new System.Drawing.Size(75, 25);
             this.cmdExecute.TabIndex = 2;
             this.cmdExecute.Text = "E&xecute";
             this.cmdExecute.UseVisualStyleBackColor = true;
@@ -74,9 +75,9 @@
             // cmdStru
             // 
             this.cmdStru.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdStru.Location = new System.Drawing.Point(533, 91);
+            this.cmdStru.Location = new System.Drawing.Point(533, 99);
             this.cmdStru.Name = "cmdStru";
-            this.cmdStru.Size = new System.Drawing.Size(75, 23);
+            this.cmdStru.Size = new System.Drawing.Size(75, 25);
             this.cmdStru.TabIndex = 3;
             this.cmdStru.Text = "&Structure";
             this.cmdStru.UseVisualStyleBackColor = true;
@@ -84,9 +85,9 @@
             // cmdExit
             // 
             this.cmdExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdExit.Location = new System.Drawing.Point(533, 168);
+            this.cmdExit.Location = new System.Drawing.Point(533, 182);
             this.cmdExit.Name = "cmdExit";
-            this.cmdExit.Size = new System.Drawing.Size(75, 23);
+            this.cmdExit.Size = new System.Drawing.Size(75, 25);
             this.cmdExit.TabIndex = 4;
             this.cmdExit.Text = "Cl&ose";
             this.cmdExit.UseVisualStyleBackColor = true;
@@ -98,17 +99,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(30, 263);
+            this.dataGridView1.Location = new System.Drawing.Point(30, 285);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(578, 181);
+            this.dataGridView1.Size = new System.Drawing.Size(578, 196);
             this.dataGridView1.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(28, 248);
+            this.label2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(28, 269);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 12);
             this.label2.TabIndex = 6;
@@ -116,9 +117,9 @@
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(28, 207);
+            this.label3.Location = new System.Drawing.Point(28, 224);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(580, 29);
+            this.label3.Size = new System.Drawing.Size(580, 31);
             this.label3.TabIndex = 7;
             this.label3.Text = "Note: In order to avoid display error, column of types \'blob\', \'binary\', \'varbina" +
     "ry\', \'geography\', \'text\', \'ntext\', \'image\' will be hide from field list automati" +
@@ -126,7 +127,7 @@
             // 
             // myTabs
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -137,7 +138,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Name = "myTabs";
-            this.Size = new System.Drawing.Size(638, 475);
+            this.Size = new System.Drawing.Size(638, 515);
             this.Load += new System.EventHandler(this.myTabs_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

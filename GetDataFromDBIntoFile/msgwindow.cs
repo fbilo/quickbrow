@@ -12,12 +12,24 @@ namespace GetDataFromDBIntoFile
 {
     public partial class msgwindow : Form
     {
+        string title;
+        string message;
+
         public msgwindow(string ctitle, string cMessage)
         {
+            title = ctitle;
+            message = cMessage;
             InitializeComponent();
-            this.Text = ctitle;
-            label1.Text = cMessage;
+        }
+
+        private void msgwindow_Load(object sender, EventArgs e)
+        {
+            this.Text = title;
+            label1.Text = message;
             label1.Visible = true;
+            label1.Refresh();
+
+            Application.DoEvents();
         }
     }
 }
